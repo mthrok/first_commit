@@ -18,7 +18,7 @@ cmake .. -G Ninja
 ninja install
 ```
 
-All subprojects will be built and installed into directory called "out".
+All subprojects will be built and installed into a directory called "out".
 
 In addition, dependencies are downloaded to a directory called "external". All dependencies are build from source and installed to "out/external".
 
