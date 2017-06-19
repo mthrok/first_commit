@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t first_commit/build docker/build
+
+script:
+  - docker run first_commit/build
