@@ -1,6 +1,13 @@
 # first_commit
 Monorepo for First-Commit organization
 
+# Dependencies
+To install dependencies on ubuntu, run the following command:
+
+```bash
+sudo apt-get install build-essential cmake ninja-build
+```
+
 # Build The Code
 To build the code, run the following commands from the first_commit directory:
 
