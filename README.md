@@ -20,6 +20,6 @@ ninja install
 
 All subprojects will be built and installed into a directory called "out".
 
-In addition, dependencies are downloaded to a directory called "external". All dependencies are build from source and installed to "out/external".
+In addition, dependencies are downloaded to a directory called "external", built, and installed to the "out" directory.
 
 Both the out directory and external directory are ignored by git.
