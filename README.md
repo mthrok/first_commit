@@ -5,7 +5,7 @@ Monorepo for First-Commit organization
 To install dependencies on ubuntu, run the following command:
 
 ```bash
-sudo apt-get install git mercurial build-essential cmake ninja-build
+sudo apt-get install -y git mercurial build-essential autoconf automake libtool pkg-config unzip cmake ninja-build curl ruby-dev bison autopoint gettext
 ```
 
 # Build The Code
