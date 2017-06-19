@@ -1,4 +1,6 @@
-# first_commit
+[![Build Status](https://travis-ci.org/First-Commit/first_commit.svg?branch=master)](https://travis-ci.org/First-Commit/first_commit)
+
+# First Commit
 Monorepo for First-Commit organization
 
 # Dependencies
