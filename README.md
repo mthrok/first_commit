@@ -1,5 +1,5 @@
 # First Commit [![Build Status](https://travis-ci.org/First-Commit/first_commit.svg?branch=master)](https://travis-ci.org/First-Commit/first_commit)
-Monorepo for First-Commit organization
+Monorepo for First-Commit team
 
 # Dependencies
 To install dependencies on ubuntu, run the following command:
