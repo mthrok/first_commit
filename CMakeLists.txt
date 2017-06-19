@@ -92,5 +92,4 @@ ExternalProject_Add("ignition_transport"
   CMAKE_ARGS
     "${external_cmake_args}"
     "-DPKG_CONFIG_PATH=${CMAKE_PREFIX_PATH}/lib/pkgconfig"
-    "-DBUILD_TESTING=OFF"
   DEPENDS "ignition_math" "ignition_msgs" "protobuf" "zmq" "cppzmq" "util_linux")
