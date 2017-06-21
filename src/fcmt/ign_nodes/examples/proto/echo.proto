@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package fcmt.ign_nodes.examples.proto;
+
+message EchoRequest {
+  int32 value = 1;
+}
+
+message EchoReply {
+  int32 value = 1;
+}

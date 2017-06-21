@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
-project(FirstCommit VERSION 0.1.0 LANGUAGES CXX)
+project(FirstCommitWorkspace VERSION 0.1.0 LANGUAGES CXX)
+
+include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 # ------------------------------------------------------------------------------
 # Set vars
@@ -19,17 +21,15 @@ set(external_cmake_args
   "-DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}")
 
 # ------------------------------------------------------------------------------
-# Enable testing globally
+# Enable testing for all subprojects
 enable_testing()
 
 # ------------------------------------------------------------------------------
-# Install external projects
-include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
-
+# External projects
 ExternalProject_Add("protobuf"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/protobuf"
-  GIT_REPOSITORY "https://github.com/google/protobuf.git"
-  GIT_TAG "v3.3.0"
+  URL "https://github.com/google/protobuf/archive/v3.3.0.tar.gz"
+  URL_HASH SHA256=94c414775f275d876e5e0e4a276527d155ab2d0da45eed6b7734301c330be36e
   CONFIGURE_COMMAND ./autogen.sh
   COMMAND ./configure --prefix=${FIRST_COMMIT_OUT_DIR} CXXFLAGS=-std=c++11
   BUILD_COMMAND make
@@ -38,23 +38,23 @@ ExternalProject_Add("protobuf"
 
 ExternalProject_Add("zmq"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/zmq"
-  GIT_REPOSITORY "https://github.com/zeromq/libzmq.git"
-  GIT_TAG "v4.2.2"
+  URL "https://github.com/zeromq/libzmq/archive/v4.2.2.tar.gz"
+  URL_HASH SHA256=ea5eecbb9cc231a750535a7b74f887b18656014cc92601e8ab34734db799b796
   INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
   CMAKE_ARGS ${external_cmake_args})
 
 ExternalProject_Add("cppzmq"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/cppzmq"
-  GIT_REPOSITORY "https://github.com/zeromq/cppzmq.git"
-  GIT_TAG "v4.2.1"
+  URL "https://github.com/zeromq/cppzmq/archive/v4.2.1.tar.gz"
+  URL_HASH SHA256=11c699001659336c7d46779f714f3e9d15d63343cd2ae7c1905e4bf58907cef9
   INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
   CMAKE_ARGS "${external_cmake_args}"
   DEPENDS "zmq")
 
 ExternalProject_Add("util_linux"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/util_linux"
-  GIT_REPOSITORY "https://github.com/karelzak/util-linux.git"
-  GIT_TAG "v2.30"
+  URL "https://github.com/karelzak/util-linux/archive/v2.30.tar.gz"
+  URL_HASH SHA256=ec6416bfecd07d10939350f515ea9628e37c31d03f74be9113eb3b7d008262f1
   CONFIGURE_COMMAND ./autogen.sh
   COMMAND ./configure --prefix=${FIRST_COMMIT_OUT_DIR} CXXFLAGS=-std=c++11
   BUILD_COMMAND make
@@ -63,33 +63,44 @@ ExternalProject_Add("util_linux"
 
 ExternalProject_Add("ignition_math"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/ignition_math"
-  HG_REPOSITORY "https://bitbucket.org/ignitionrobotics/ign-math"
-  HG_TAG "ignition-math3_3.2.0"
+  URL "https://bitbucket.org/ignitionrobotics/ign-math/get/ignition-math3_3.2.0.tar.gz"
+  URL_HASH SHA256=1948c1610fa4403bce7ba2a262a29662990ee66aab00882411a0868afe0e5309
   INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
   CMAKE_ARGS "${external_cmake_args}")
 
+# This builds and installs the ign command-line tool.
 ExternalProject_Add("ignition_tools"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/ignition_tools"
-  HG_REPOSITORY "https://bitbucket.org/ignitionrobotics/ign-tools"
-  # NOTE: ign-tools does not have any release tags, so we just pull tip. This project doesn't seem
-  # to be updated very often though. DANGEROUS!!!
+  # NOTE: ign-tools does not have any release tags.
+  # But there haven't been any new commits since 2016-08-08 (as of 2017-06-22).
+  URL "https://bitbucket.org/ignitionrobotics/ign-tools/get/75a248c4c899.tar.gz"
+  URL_HASH SHA256=61b041ee347fecb47ddab7973c9a8e4999faeaa857f49848aa180b9864885cda
   INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
   CMAKE_ARGS "${external_cmake_args}")
 
 ExternalProject_Add("ignition_msgs"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/ignition_msgs"
-  HG_REPOSITORY "https://bitbucket.org/ignitionrobotics/ign-msgs"
-  HG_TAG "ignition-msgs_0.7.0"
+  URL "https://bitbucket.org/ignitionrobotics/ign-msgs/get/ignition-msgs_0.7.0.tar.gz"
+  URL_HASH SHA256=a3bd439c15df1dbde7f9e8c6fb272c7bfb2dcd34059d6b672f6805918e455e72
   INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
   CMAKE_ARGS "${external_cmake_args}"
   DEPENDS "ignition_math" "protobuf")
 
 ExternalProject_Add("ignition_transport"
   PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/ignition_transport"
-  HG_REPOSITORY "https://bitbucket.org/ignitionrobotics/ign-transport"
-  HG_TAG "ignition-transport3_3.0.1"
+  URL "https://bitbucket.org/ignitionrobotics/ign-transport/get/ignition-transport3_3.0.1.tar.gz"
+  URL_HASH SHA256=bcc9d7ad640d9ad3a38f8186b48408eef8195d4a04d768e0a5769b7f501d10ca
   INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
   CMAKE_ARGS
     "${external_cmake_args}"
     "-DPKG_CONFIG_PATH=${CMAKE_PREFIX_PATH}/lib/pkgconfig"
   DEPENDS "ignition_math" "ignition_msgs" "protobuf" "zmq" "cppzmq" "util_linux")
+
+# Add src as an external project, because this is the only way to make sure it doesn't get built
+# until after all of its dependencies are installed.
+ExternalProject_Add("src"
+  PREFIX "${FIRST_COMMIT_EXTERNAL_DIR}/src"
+  SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src"
+  INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}"
+  CMAKE_ARGS "${external_cmake_args}"
+  DEPENDS "ignition_transport" "protobuf")
