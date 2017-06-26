@@ -7,8 +7,8 @@ docker run \
   --user ${USER} \
   -e USER=${USER} \
   -e USERID=${UID} \
-  -v ${DIR}:/home/${USER}/first_commit:ro \
-  -v ${DIR}/build:/home/${USER}/build \
-  -v ${DIR}/out:/home/${USER}/out \
-  -v ${DIR}/external:/home/${USER}/external \
+  -v ${DIR}:${HOME}/first_commit:ro \
+  -v ${DIR}/build:${HOME}/build \
+  -v ${DIR}/out:${HOME}/out \
+  -v ${DIR}/external:${HOME}/external \
   first_commit/build
