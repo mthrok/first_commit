@@ -10,7 +10,10 @@ before_install:
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
-  - docker pull kgreenek/first_commit_build
+  # Pull this docker image as a sort of cache, so we don't have to rebuild the whole image if
+  # nothing / little changed.
+  - docker pull kgreenek/first_commit_build:0.2.0
+  - docker build -t first_commit_travis_build $TRAVIS_BUILD_DIR/docker/build
 
 script:
-  - docker run --volume $TRAVIS_BUILD_DIR:"/root/first_commit" kgreenek/first_commit_build
+  - docker run --volume $TRAVIS_BUILD_DIR:"/root/first_commit" first_commit_travis_build
