@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[]) {
   auto i = 0;
+  ignition::transport::Node node;
   while (true) {
-    ignition::transport::Node node;
     fcmt::ign_nodes::examples::proto::EchoRequest request;
     request.set_value(i++);
     fcmt::ign_nodes::examples::proto::EchoReply reply;
