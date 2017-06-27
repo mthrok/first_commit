@@ -16,4 +16,4 @@ before_install:
   - ./update_build_image.sh
 
 script:
-  - build.sh
+  - ./build.sh
