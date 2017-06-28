@@ -6,7 +6,7 @@ Monorepo for First-Commit team
 Install docker by following these steps:
 https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
 
-## Update Docker Build Image
+### Update Docker Build Image
 From the first_commit directory, run:
 ```bash
 ./update_build_image.sh
