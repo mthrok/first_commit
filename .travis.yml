@@ -13,7 +13,11 @@ before_install:
   # Pull this docker image as a sort of cache, so we don't have to rebuild the whole image if
   # nothing / little changed.
   - docker pull kgreenek/first_commit_build:0.2.0
-  - ./update_build_image.sh
+  - "./update_build_image.sh"
 
 script:
-  - ./build.sh
+  - "./build.sh"
+
+notifications:
+  slack:
+    secure: fHyesjWe0RPl9wMF03iYxlFqpnG1VdMSNSNmtB5Z7XUDWmBcjh/Gzm+Ex6G1Ynns9wiIUYswLx+CVFmK+Pmm38iRw7goo+HaXdqjGqCUIc+qbSK5++T7dfZSiEn1ufLzoI2ot2F9MZV5t0vIZty+oOhvJd+5r86ZlKsSkL5YOCQAzTsAvVULyXQ+bFpnK1j3chTBzQuK+/mkEMzSeqMYqxqzZ+ZN8G1taszQc4nu4ZmL75nHhIAxQzBgHGtiASMOsfxJC27SMV8F4ffmOyIBgCiuCUFhSqwP93VAja1Lo19pyNLpERS0v+I/TBMDA/cnGdkvPx6Y+8dqn1Kw5nIW5vVt2VqENtDhh9UjJvPkPWFxYbx6VTqAVCNA4JHSnWNMYVSQHUBnUPvur66EFtbx7VOjdHtVd+qbn5U+sfpgXjunBggIjMxC1v+TXR4i7Fh7xQyJKnIg9GpodhmLwd3PEc/EANjAPVmcmJ3CKeE5YuaMk7ftpj4ZzaxqRpbcwYVTgIXc2J/TnhphrtpvCBhbf0cnwJFl0d1eHDaf/RS6Ul+hKxJAsXapYs+1BiLHghy6zC5DEpQnRk5MSX4rDMLJ8lWop7OOALav9ztOtXIISzAY2PS2f7btgZyRr16SHBQnL28KCR46mDVfsjoV5B+vRIKXioI64RbXuWtz3V6JF34=
