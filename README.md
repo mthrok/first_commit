@@ -40,7 +40,7 @@ Because we do not install shared libraries and binaries to system, you will need
 source init_shell.sh
 ```
 
-If you do not want to have to run init_shell.sh in every new terminal, open the init_shell.sh script, and copy/paste the export lines into your .bashrc or .bash_profile.
+If you do not want to have to run init_shell.sh in every new terminal, source it in your .bashrc or .bash_profile.
 
 After running init_shell.sh, the out/install/bin path is added to your $PATH, so you can run programs by typing them directly.
 
