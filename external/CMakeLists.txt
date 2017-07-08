@@ -10,11 +10,11 @@ set(CMAKE_CXX_STANDARD 14)
 get_filename_component(workspace_root ".."
   REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
-set(FIRST_COMMIT_OUT_DIR "${workspace_root}/out" CACHE STRING "Output directory")
+set(FIRST_COMMIT_OUT_DIR "${workspace_root}/out" CACHE STRING "Output directory" FORCE)
 set(FIRST_COMMIT_EXTERNAL_SRC_DIR "${FIRST_COMMIT_OUT_DIR}/external/src" CACHE STRING
-  "Location to download external project sources")
+  "Location to download external project sources" FORCE)
 set(FIRST_COMMIT_EXTERNAL_INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}/external/install" CACHE STRING
-  "Location to install external project artifacts")
+  "Location to install external project artifacts" FORCE)
 
 set(external_cmake_args
   "-DCMAKE_INSTALL_PREFIX=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}"
