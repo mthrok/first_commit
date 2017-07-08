@@ -28,7 +28,7 @@ ENTRYPOINT \
     mkdir -p /home/${USER}/first_commit/out/build && \
     cd /home/${USER}/first_commit/out/build && \
     cmake /home/${USER}/first_commit -G Ninja && \
-    ninja
+    ninja install
 
 #ENTRYPOINT \
 #    export LD_LIBRARY_PATH="/home/${USER}/out/lib":"${LD_LIBRARY_PATH}" && \

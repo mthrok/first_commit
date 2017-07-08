@@ -4,16 +4,13 @@ project(FirstCommit VERSION 0.1.0 LANGUAGES CXX)
 # ------------------------------------------------------------------------------
 # Set vars
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 set(FIRST_COMMIT_OUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/out" CACHE STRING "Output directory")
 set(FIRST_COMMIT_EXTERNAL_INSTALL_DIR "${FIRST_COMMIT_OUT_DIR}/external/install" CACHE STRING
   "Location to install external project artifacts")
 
 list(APPEND CMAKE_PREFIX_PATH ${FIRST_COMMIT_EXTERNAL_INSTALL_DIR})
-if(NOT CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "${FIRST_COMMIT_OUT_DIR}/install")
-endif()
+set(CMAKE_INSTALL_PREFIX "${FIRST_COMMIT_OUT_DIR}/install")
 
 # ------------------------------------------------------------------------------
 # Enable testing for all sub-projects.

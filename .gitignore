@@ -1,7 +1,6 @@
 build
 !docker/build
 out
-external
 
 # Prerequisites
 *.d
