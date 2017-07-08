@@ -18,12 +18,25 @@ RUN echo "creating new ${USER} with UID ${USERID}" && \
     chown -R ${USER} /home/${USER}
 
 ENTRYPOINT \
-    export LD_LIBRARY_PATH="/home/${USER}/out/lib":"${LD_LIBRARY_PATH}" && \
-    cd /home/${USER}/build && \
-    cmake "/home/${USER}/first_commit" -G Ninja \
-        -DFIRST_COMMIT_OUT_DIR="/home/${USER}/out" \
-        -DFIRST_COMMIT_EXTERNAL_DIR="/home/${USER}/external" && \
+    echo "Building external projects..." && \
+    mkdir -p /home/${USER}/first_commit/out/external/src && \
+    mkdir -p /home/${USER}/first_commit/out/external/build && \
+    cd /home/${USER}/first_commit/out/external/build && \
+    cmake /home/${USER}/first_commit/external -G Ninja && \
+    ninja && \
+    echo "Building fcmt..." && \
+    mkdir -p /home/${USER}/first_commit/out/build && \
+    cd /home/${USER}/first_commit/out/build && \
+    cmake /home/${USER}/first_commit -G Ninja && \
     ninja
+
+#ENTRYPOINT \
+#    export LD_LIBRARY_PATH="/home/${USER}/out/lib":"${LD_LIBRARY_PATH}" && \
+#    cd /home/${USER}/build && \
+#    cmake "/home/${USER}/first_commit" -G Ninja \
+#        -DFIRST_COMMIT_OUT_DIR="/home/${USER}/out" \
+#        -DFIRST_COMMIT_EXTERNAL_DIR="/home/${USER}/external" && \
+#    ninja
 # TODO(kgreenek): Add tests and targets to install.
 #    ninja test && \
 #    ninja install
