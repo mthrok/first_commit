@@ -23,21 +23,56 @@ Once the build image is updated, run it with the following command:
 ### Output
 The build.sh script create 3 directories in the first_commit directory:
 * out/
-  * Contains all binaries, headers, and libraries that were built
-* external/
-  * Contains external sources that were downloaded
-* build/
+  * Top-level directory for all build artifacts
+* out/install/
+  * Contains the customary bin/ lib/ and include/ directories for first_commit artifacts
+* out/build/
   * Contains cmake build meta-data and cmake cache
+* out/external/
+  * Contains external sources that were downloaded, and external build artifacts
+
+
+### Running applications
+
+Because we do not install shared libraries and binaries to system, you will need to source the init_shell.sh script to set the appropriate environment variables:
+
+```bash
+source init_shell.sh
+```
+
+If you do not want to have to run init_shell.sh in every new terminal, open the init_shell.sh script, and copy/paste the export lines into your .bashrc or .bash_profile.
+
+After running init_shell.sh, the out/install/bin path is added to your $PATH, so you can run programs by typing them directly.
+
 
 ## Building without Docker
 ### Dependencies
-To install dependencies on ubuntu, run the following command:
+To install the necessary build dependencies on ubuntu, run the following command:
 
 ```bash
 sudo apt-get install -y git mercurial build-essential autoconf automake libtool pkg-config unzip cmake ninja-build curl ruby-dev bison autopoint gettext
 ```
 
-### Build The Code
+### Build External Dependencies
+Before building source, you must first build the external dependencies.
+
+From the first_commit directory, run:
+
+```bash
+cd external
+mkdir build
+cd build
+cmake .. -G Ninja
+ninja
+```
+
+This will download and build all needed dependencies from source and install it to out/external.
+
+This can take a while to run, but it only needs to be done once.
+
+
+### Building Source
+
 To build the code, run the following commands from the first_commit directory:
 
 ```bash
@@ -46,12 +81,3 @@ cd build
 cmake .. -G Ninja
 ninja install
 ```
-
-All subprojects will be built and installed into a directory called "out".
-
-In addition, dependencies are downloaded to a directory called "external", built, and installed to the "out" directory.
-
-Both the out directory and external directory are ignored by git.
-
-## Notes
-If you are unable to get cmake to rebuild after making changes to source, delete the build directory and re-run build.sh
