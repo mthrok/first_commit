@@ -1,10 +1,12 @@
 # First Commit [![Build Status](https://travis-ci.org/First-Commit/first_commit.svg?branch=master)](https://travis-ci.org/First-Commit/first_commit)
 Monorepo for First-Commit team
 
+
 ## Building with Docker
 ### Dependencies
 Install docker by following these steps:
 https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+
 
 ### Update Docker Build Image
 From the first_commit directory, run:
@@ -14,11 +16,15 @@ From the first_commit directory, run:
 
 This will create a docker image called first_commit/build with the necessary dependencies installed. You should run this to update the docker image whenever docker/build/Dockerfile changes. This won't happen very often.
 
+
 ### Build
 Once the build image is updated, run it with the following command:
 ```bash
 ./build.sh
 ```
+
+The first time you build, it will take quite a long time because it has to build the external dependencies. Subsequent builds will be much faster because it only builds fcmt.
+
 
 ### Output
 The build.sh script create 3 directories in the first_commit directory:
@@ -31,6 +37,13 @@ The build.sh script create 3 directories in the first_commit directory:
 * out/external/
   * Contains external sources that were downloaded, and external build artifacts
 
+### Cleaning
+To clean the build, do NOT delete the out directory. This will cause you to have to re-download and re-build all external projects, which is very slow. Instead, to only clean the fcmt build directory, run the clean.sh script:
+
+```bash
+./clean.sh
+```
+
 
 ### Running applications
 
@@ -40,7 +53,7 @@ Because we do not install shared libraries and binaries to system, you will need
 source init_shell.sh
 ```
 
-If you do not want to have to run init_shell.sh in every new terminal, open the init_shell.sh script, and copy/paste the export lines into your .bashrc or .bash_profile.
+If you do not want to have to run init_shell.sh in every new terminal, source it in your .bashrc or .bash_profile.
 
 After running init_shell.sh, the out/install/bin path is added to your $PATH, so you can run programs by typing them directly.
 
