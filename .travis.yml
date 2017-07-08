@@ -12,6 +12,10 @@ before_install:
   - sudo apt-get -y install docker-ce
   - "./update_build_image.sh"
 
+cache:
+  directories:
+    - out/external
+
 script:
   - "./build.sh"
 
