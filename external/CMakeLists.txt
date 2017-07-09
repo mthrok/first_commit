@@ -20,6 +20,10 @@ set(external_cmake_args
   "-DCMAKE_INSTALL_PREFIX=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}"
   "-DCMAKE_PREFIX_PATH=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}")
 
+set(external_configure_args
+  "--prefix=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}"
+  "CXXFLAGS=-std=c++11")
+
 # ------------------------------------------------------------------------------
 # External projects
 ExternalProject_Add("protobuf"
@@ -27,7 +31,7 @@ ExternalProject_Add("protobuf"
   URL "https://github.com/google/protobuf/archive/v3.3.0.tar.gz"
   URL_HASH SHA256=94c414775f275d876e5e0e4a276527d155ab2d0da45eed6b7734301c330be36e
   CONFIGURE_COMMAND ./autogen.sh
-  COMMAND ./configure --prefix=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR} CXXFLAGS=-std=c++11
+  COMMAND ./configure ${external_configure_args}
   BUILD_COMMAND make
   INSTALL_COMMAND make install
   BUILD_IN_SOURCE 1)
@@ -52,7 +56,7 @@ ExternalProject_Add("util_linux"
   URL "https://github.com/karelzak/util-linux/archive/v2.30.tar.gz"
   URL_HASH SHA256=ec6416bfecd07d10939350f515ea9628e37c31d03f74be9113eb3b7d008262f1
   CONFIGURE_COMMAND ./autogen.sh
-  COMMAND ./configure --prefix=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR} CXXFLAGS=-std=c++11
+  COMMAND ./configure ${external_configure_args}
   BUILD_COMMAND make
   INSTALL_COMMAND make install
   BUILD_IN_SOURCE 1)
