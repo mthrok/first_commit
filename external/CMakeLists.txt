@@ -95,3 +95,13 @@ ExternalProject_Add("ignition_transport"
     "${external_cmake_args}"
     "-DPKG_CONFIG_PATH=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}/lib/pkgconfig"
   DEPENDS "ignition_math" "ignition_msgs" "protobuf" "zmq" "cppzmq" "util_linux")
+
+ExternalProject_Add("opencv"
+  PREFIX "${FIRST_COMMIT_EXTERNAL_SRC_DIR}/opencv"
+  URL "https://github.com/opencv/opencv/archive/3.2.0.tar.gz"
+  URL_HASH SHA256=b9d62dfffb8130d59d587627703d5f3e6252dce4a94c1955784998da7a39dd35
+  INSTALL_DIR "${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}"
+  CMAKE_ARGS
+    "${external_cmake_args}"
+    "-DPKG_CONFIG_PATH=${FIRST_COMMIT_EXTERNAL_INSTALL_DIR}/lib/pkgconfig")
+
